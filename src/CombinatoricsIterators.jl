@@ -1,15 +1,28 @@
 __precompile__(true)
 
-
-module CartesianIterator
+"""
+Module for iterating through combinatoric structures
+"""
+module CombinatoricsIterators
 
 
 # struct CartIt
 # 	lb
 # end
 
+
+
+
+"""
+testdoc
+"""
 export cartiter
-# Returns generator for all combinations for the given list of indexranges
+
+
+"""
+CartesianIterator
+Returns generator for all combinations for the given list of indexranges
+"""
 function cartiter(its)
 	exbuff = IOBuffer()
 	write(exbuff, "(its_=$its; inds_=zeros(Int, length(its_)); ((inds_...,) for ")
