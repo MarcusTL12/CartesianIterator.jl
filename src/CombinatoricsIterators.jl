@@ -2,6 +2,7 @@ __precompile__(true)
 
 """
 Module for iterating through combinatoric structures
+	Dev branch
 """
 module CombinatoricsIterators
 
@@ -12,12 +13,7 @@ module CombinatoricsIterators
 
 
 
-
-"""
-testdoc
-"""
 export cartiter
-
 
 """
 CartesianIterator
