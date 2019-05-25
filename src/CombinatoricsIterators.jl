@@ -6,13 +6,6 @@ Module for iterating through combinatoric structures
 """
 module CombinatoricsIterators
 
-
-# struct CartIt
-# 	lb
-# end
-
-
-
 export cartiter
 
 """
@@ -27,7 +20,7 @@ function cartiter(its)
 		write(exbuff, "inds_[$i]=its_[$i]")
 	end
 	write(exbuff, "))")
-	eval(Meta.parse(String(take!(exbuff))))
+	eval(Meta.parse(String(k!(exbuff))))
 end
 
 # Returns generator for all combinations for the given list of indexranges
@@ -36,20 +29,20 @@ cartiter(its...) = cartiter(its)
 
 export BinomIter
 struct BinomIter
-	data::AbstractArray
-	take::Int
-	BinomIter(elems::AbstractArray, take::Int) =
-		new(elems, take)
+	c::AbstractArray
+	k::Int
+	BinomIter(c::AbstractArray, k::Int=2) =
+		new(c, k)
 end
 
 import Base.iterate
 export iterate
-function iterate(it::BinomIter, state=[i for i in 1 : it.take])
-	ret = ([it.data[j] for j in state], state)
-	i = it.take
-	while i > 0 && (state[i] += 1) > length(it.data) - (it.take - (i -= 1) - 1) end
-	state[i+2 : end] .= (state[i + 1] + 1 : state[i + 1] + (it.take - (i + 1)))
-	state[end] > length(it.data) && return nothing
+function iterate(it::BinomIter, state=[i for i in 1 : it.k])
+	state[end] > length(it.c) && return nothing
+	ret = ([it.c[j] for j in state], state)
+	i = it.k
+	while i > 0 && (state[i] += 1) > length(it.c) - (it.k - (i -= 1) - 1) end
+	state[i+2 : end] .= (state[i + 1] + 1 : state[i + 1] + (it.k - (i + 1)))
 	ret
 end
 
@@ -57,7 +50,7 @@ end
 
 import Base.length
 export length
-length(it::BinomIter) = binomial(length(it.data), it.take)
+length(it::BinomIter) = binomial(length(it.c), it.k)
 
 
 

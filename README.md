@@ -3,7 +3,7 @@ Iterations tools for different combinatoric structures.
 
 Two functions defined for now:
 
-## combs(Collection c, k=2)
+## BinomIter(Collection c, k=2)
 
 This function lets you iterate through all unique k-tuples of different elements of c.
 The length of this iterator is n choose k, as it is almost the definition of the binomial
@@ -16,7 +16,7 @@ Usage of this grants a really slick way of iterating through all these combinati
 bodies = [...]
 
 # For example for an n-body gravity simulation
-for (i, j) ∈ combs(bodies)
+for (i, j) ∈ BinomIter(bodies)
     applyGravity(i, j)
 end
 ```
