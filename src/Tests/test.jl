@@ -3,9 +3,13 @@ include("../CombinatoricsIterators.jl")
 
 let
 	
-	for (i, j) in CombinatoricsIterators.cartiter(0:5, 0:4)
-		println((i, j))
-	end
+	a = [i for i in 1 : 11]
+	
+	# for i in CombinatoricsIterators.BinomIter(a, 5)
+	# 	display(i)
+	# end
+	
+	[i for i in CombinatoricsIterators.BinomIter(a, 5)]
 	
 end
 

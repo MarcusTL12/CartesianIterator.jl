@@ -34,5 +34,31 @@ end
 cartiter(its...) = cartiter(its)
 
 
+export BinomIter
+struct BinomIter
+	data::AbstractArray
+	take::Int
+	BinomIter(elems::AbstractArray, take::Int) =
+		new(elems, take)
+end
+
+import Base.iterate
+export iterate
+function iterate(it::BinomIter, state=[i for i in 1 : it.take])
+	ret = ([it.data[j] for j in state], state)
+	i = it.take
+	while i > 0 && (state[i] += 1) > length(it.data) - (it.take - (i -= 1) - 1) end
+	state[i+2 : end] .= (state[i + 1] + 1 : state[i + 1] + (it.take - (i + 1)))
+	state[end] > length(it.data) && return nothing
+	ret
+end
+
+
+import Base.length
+export length
+length(it::BinomIter) = binomial(length(it.data), it.take)
+
+
+
 end
 
